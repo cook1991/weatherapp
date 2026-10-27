@@ -1,5 +1,6 @@
 import java.io.FileInputStream
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -23,14 +24,14 @@ val mapTilerKey = (mapsProperties["maptilerKey"] as String?).orEmpty()
 
 android {
     namespace = "com.spritzlive.weather"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.spritzlive.weather"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
         vectorDrawables { useSupportLibrary = true }
 
         // Exposed to code as BuildConfig.MAPTILER_KEY; empty string when unset.
@@ -68,23 +69,26 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
         buildConfig = true
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+    val composeBom = platform("androidx.compose:compose-bom:2026.06.01")
     implementation(composeBom)
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.activity:activity-compose:1.9.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("androidx.core:core-ktx:1.18.0")
+    implementation("androidx.activity:activity-compose:1.13.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
 
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -92,7 +96,7 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
 
     // Google Play Services location — FusedLocationProvider (one-shot current fix).
-    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-location:21.4.0")
 
     // osmdroid — OpenStreetMap base tiles + RainViewer radar overlay. Key-less,
     // no Google Play Services dependency for the map itself.

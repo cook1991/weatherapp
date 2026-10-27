@@ -72,7 +72,6 @@ fun WeatherScreen(
     onToggleUnit: () -> Unit,
     onRefresh: () -> Unit,
     onDismissError: () -> Unit,
-    onSupport: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -107,8 +106,6 @@ fun WeatherScreen(
                 else -> WelcomeContent(deniedPermanently, onUseLocation, onOpenSettings)
             }
         }
-
-        SupportLink(onSupport)
     }
 }
 
@@ -560,11 +557,3 @@ private fun ErrorBanner(error: String, onDismiss: () -> Unit) {
     }
 }
 
-@Composable
-private fun SupportLink(onSupport: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        TextButton(onClick = onSupport) {
-            Text("☕  Buy me a coffee", fontSize = 14.sp, color = Color(0xFF8899AA))
-        }
-    }
-}

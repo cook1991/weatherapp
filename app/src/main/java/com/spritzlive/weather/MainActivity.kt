@@ -25,8 +25,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.spritzlive.weather.ui.WeatherScreen
 import com.spritzlive.weather.ui.WeatherTheme
 
-private const val SUPPORT_URL = "https://buymeacoffee.com/spritzjason"
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,10 +88,5 @@ private fun WeatherApp() {
         onToggleUnit = vm::toggleUnit,
         onRefresh = vm::refresh,
         onDismissError = vm::dismissError,
-        onSupport = {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SUPPORT_URL))
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            runCatching { context.startActivity(intent) }
-        },
     )
 }
